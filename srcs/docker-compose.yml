@@ -5,7 +5,8 @@ services:
 
   nginx:
     container_name: nginx
-    build: ./srcs/requirements/nginx
+    build: requirements/nginx
+    image: nginx
     depends_on:
       - wordpress
     volumes:
@@ -20,7 +21,8 @@ services:
     container_name: wordpress
     depends_on:
       - mariadb
-    build: ./srcs/requirements/wordpress
+    build: requirements/wordpress
+    image: wordpress
     volumes:
       - wordpress_data:/var/www/html
     ports:
@@ -33,7 +35,8 @@ services:
 
   mariadb:
     container_name: mariadb
-    build: ./srcs/requirements/mariadb
+    build: requirements/mariadb
+    image: mariadb
     ports:
       - 3036:3036
     restart: always
@@ -46,9 +49,17 @@ services:
 
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cjulienn/data/mysql
+      o: bind
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cjulienn/data/wordpress
+      o: bind
 
 networks:
   network:
-    driver: bridge
-

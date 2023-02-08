@@ -5,7 +5,7 @@ all: prune load
 
 # put down every container
 down:
-	@ docker compose -f srcs/docker-compose.yml down
+	@ docker compose -f srcs/docker-compose.yml down --remove-orphans --volumes
 
 # remove all unused containers, including volumes
 prune:	down

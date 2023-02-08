@@ -30,7 +30,7 @@ echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD'; FLU
 echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE; GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root
 
 # Import sql database from a previous manual wordpress setup to avoid having to do it every time
-mysql -uroot -p$MARIADB_ROOT_PASSWORD < /usr/local/bin/wordpress.sql
+mysql -uroot -p$MARIADB_ROOT_PASSWORD $MARIADB_DATABASE < /usr/local/bin/wordpress.sql
 
 fi
 
