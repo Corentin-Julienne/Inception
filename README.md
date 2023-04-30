@@ -1,11 +1,21 @@
 # **Inception**
 
-## **Goal of the project**
+## **🗣️ About**
 ---
 
-The project "Inception" of the 42 School is based on Docker. You will need to set up a LEMP stack (For Linux, Nginx, MariaDB, PHP) with Wordpress. Each service will be located inside a Docker container. 
+The project "Inception" of the 42 School is based on Docker. You will need to set up a LEMP stack (For Linux, Nginx, MariaDB, PHP with Wordpress). Each service will be located inside a Docker container.
 
-## **Docker main concepts**
+More information can be found on the subject PDF.
+
+## **💿 Compilation and Execution**
+
+Use the Makefile to trigger dockerfiles. Write ```make``` to launch all the containers.
+
+## **🗑️ Deletion**
+
+Write ```make prune``` to suppress all containers and associated data. 
+
+## **⚙️ Docker main concepts**
 --- 
 
 A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. The containers are not a Docker invention, but Docker is used to simplify the process and run several containers on a smooth way.
@@ -30,33 +40,31 @@ VMs and Containers also share some key features :
 
 A Dockerfile is a text file that has a series of instructions on how to build your image. It supports a simple set of commands that you need to use in your Dockerfile. A Dockerfile is like a Makefile for Docker Image.
 
-### *Dockerfiles main instructions*
----
-
 You can find avery good overview of the main Dockerfile at this GitHub repository : https://github.com/vbachele/Inception
 
-ENTRYPOINT vs CMD
-
-CMD allows to add more arguments when running `docker run` . However, in the case of ENTRYPOINT we cannot override the ENTRYPOINT instruction by adding command-line parameters to the `docker run` command.
-
 ### *Docker Networks : how they are working* ###
+---
 
 Docker uses a CNM (Controller Network Model) to provide networking for controllers. We can use a lot of network drivers types provided by Docker with its CNM.
 
 - bridge : the default option. Dockers make a default network, attributing an IP address to every container/service. Used mostly when your app runs in standalone containers thats need to communicate.
-- host : Removes the network isolation between Docker host and containers. Not to use for Inception project.
-- none : No network at all. Containers are conpletely isolated from one another. Usefulness ?
-- overlay : creates an internal private network that spans access all the node participating in the swarm cluster. Docker Swarn not explained in that tutorial.
-- macvlan : Gives a container a MAC address, making it appears as a physical device.
+- host : removes the network isolation between Docker host and containers. Not to use for Inception project.
+- none : no network at all. Containers are conpletely isolated from one another. Usefulness ?
+- overlay : creates an internal private network that spans access all the node participating in the swarm cluster. Docker Swarn is not explained in that tutorial.
+- macvlan : gives a container a MAC address, making it appears as a physical device.
 
 ### *Volumes in relation to Docker Compose* ###
+---
 
-You have to understand several concepts to understand volumes. Volumes are used by Docker to store persistant, stateful data. Container should contain itself only stateless data. 
+You have to understand several concepts to understand volumes. Volumes are used by Docker to store persistant, stateful data. Container should contain itself stateless data only. 
 
-Among the concept you need to understand there is :
+Among the concepts you need to understand the difference betweem a bind mount and a volume :
 
-- Bind mounts : When you use a bind mount, a file or directory on the host machine is mounted into a container. It has quite some performance limitation compared to hte volumes you should use instead.
-- The difference between bind mounts and volumes : volumes are situated outside of the containers (and are therefore permanents, and not limitated to the life cycle of the container)
+- When you use a bind mount, a file or directory on the host machine is mounted into a container. It has quite some performance limitation compared to volumes.
+- The difference between bind mounts and volumes : volumes are situated outside of the containers (and are therefore permanents, and not limitated to the life cycle of the container).
+
+### *Create and manage Docker Volumes* ###
+---
 
 How to create and manage docker volumes : 
 
@@ -125,28 +133,32 @@ services:
 If you don't have html_files, you can use the ```docker volume create html_files```to create it. When add external, Docker will find out if the volume exists, but. if it doesn't, an error will be reported.
 
 ### *Docker Best Practices* ###
+---
 
 For a more comprehensive article about this topic, see : https://cloud.google.com/architecture/best-practices-for-building-containers.
 
 The goal of this subpart is helping you designing smaller and resilient images, to improve Docker performance. Security is a topic of importance too...
 
+You should absolutely :
+
 - Run a single service per container
 - Properly handle PID, signal handling, and zonmbie processors (see chapter about it in the NGINX setup part below)
 - Optimize the image for Docker build. Docker uses a cache system, and build an image layer by layer. In practical terms, that means that if you modify a Dockerfile, Docker will execute only the steps that were modified and the steps after. That means you should : 1) place the Docker command that are more likely to change at the end AND 2) you should group some commands whenever possible (do not use 500 RUN commands...)
 
-There are some other mediumly important good practices such as :
+There are also some other mediumly important good practices such as :
+
 - remove unnecessary tools
 - build the smallest image possible (including using a lighter image using the FROM command)
 
 Those are important for performance issues, but also for security (less room for software vulnerabilities)
 
-## **Tutorial for Inception**
+## **🛠️ Tutorial for Inception**
 ---
 
 ### *Install a Virtual Machine (VM) where to run the project*
 ---
 
-You have to complete the project using a VM based on a Linux OS. However, the choice of the distro is completely up to you. I used the last Debian LTS (called Bullseye, version 11). To upgrade the performance of the VM, do not forget to install the guest additions. It will also helps to render a better and more accurate resolution. You can find the following tutorial : https://linuxways.net/debian/how-to-install-virtualbox-guest-additions-on-debian-11/.
+You have to complete the project using a VM based on a Linux OS. However, the choice of the distro is completely up to you. I used the last Debian LTS (called Bullseye, version 11). To improve the performance of the VM, do not forget to install the guest additions. It will also helps to render a better and more accurate resolution. You can find the following tutorial : https://linuxways.net/debian/how-to-install-virtualbox-guest-additions-on-debian-11/.
 
 You can use the command ````su```` in the terminal to access the root user (with the root password). You will need it to update the hosts file and for every command which requires sudo (by default, the user is not pertaining to sudo in Debian 11).
 
