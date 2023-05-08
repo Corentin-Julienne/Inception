@@ -15,10 +15,10 @@ Docker is basically about containers. A container is a standard unit of software
 We will detail the following points : 
 
 1️⃣ The difference between Docker and a Virtual Machine (VM) <br>
-2️⃣ What is a Dockerfile
-3️⃣ What are Docker Networks and how does they work
-4️⃣ Bind Mounts and Volumes
-5️⃣ Docker and Dockerfile best practices
+2️⃣ What is a Dockerfile <br>
+3️⃣ What are Docker Networks and how does they work <br>
+4️⃣ Bind Mounts and Volumes <br>
+5️⃣ Docker and Dockerfile best practices <br>
 
 #### *1. Difference between Docker and a Virtual Machine (VM)*
 
